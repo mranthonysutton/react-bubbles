@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {TextField, Button, Container} from "@material-ui/core";
+import {TextField, Button, ButtonGroup, Container} from "@material-ui/core";
 import AxiosWithAuth from "../utils/AxiosWithAuth";
 
 const initialColor = {
@@ -77,20 +77,27 @@ const ColorList = ({ colors, updateColors }) => {
         ))}
       </ul>
       {editing && (
+        <Container>
         <form onSubmit={saveEdit}>
-          <legend>edit color</legend>
-          <label>
-            color name:
-            <input
+
+            <TextField
+              required
+              placeholder={"Color Name..."}
+              variant={"outlined"}
+              margin={"normal"}
+              label={"Color Name..."}
               onChange={e =>
                 setColorToEdit({ ...colorToEdit, color: e.target.value })
               }
               value={colorToEdit.color}
             />
-          </label>
-          <label>
-            hex code:
-            <input
+
+            <TextField
+              required
+              placeholder={"Hex Code..."}
+              variant={"outlined"}
+              margin={"normal"}
+              label={"Hex Code..."}
               onChange={e =>
                 setColorToEdit({
                   ...colorToEdit,
@@ -99,12 +106,14 @@ const ColorList = ({ colors, updateColors }) => {
               }
               value={colorToEdit.code.hex}
             />
-          </label>
-          <div className="button-row">
-            <button type="submit">save</button>
-            <button onClick={() => setEditing(false)}>cancel</button>
-          </div>
+          <ButtonGroup>
+            <Container>
+            <Button variant={"contained"} color="primary" type="submit">save</Button>
+            <Button variant={"contained"} color="secondary" onClick={() => setEditing(false)}>cancel</Button>
+            </Container>
+          </ButtonGroup>
         </form>
+        </Container>
       )}
       {/*<div className="spacer" />*/}
       {/* stretch - build another form here to add a color */}
@@ -112,6 +121,7 @@ const ColorList = ({ colors, updateColors }) => {
       <form onSubmit={addNewColor}>
         <h3>Add New Color</h3>
           <TextField
+            required
             placeholder={"Color Name..."}
             variant={"outlined"}
             margin={"normal"}
@@ -123,6 +133,7 @@ const ColorList = ({ colors, updateColors }) => {
           />
 
           <TextField
+            required
             placeholder={"Hex Code..."}
             variant={"outlined"}
             margin={"normal"}
