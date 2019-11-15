@@ -20,7 +20,7 @@ const Login = (props) => {
     } else {
       setLoginCredentials({...loginCredentials, isLoggedIn: false});
     }
-  }, [loginCredentials.isLoggedIn])
+  }, [loginCredentials.isLoggedIn]);
 
   // sets login credentials while the user types in their username & password
   const handleChange = event => {

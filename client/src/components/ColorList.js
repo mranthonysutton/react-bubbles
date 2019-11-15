@@ -7,7 +7,6 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -21,6 +20,16 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+
+    // The color that is being edited, we want to get the empty structure from initialColor, so we set the colorToEdit and put that to our URL
+    AxiosWithAuth()
+      .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+      .then(response => {
+        // We run another Axios call so then we get the newly updated list of colors which will dynamically update the bubbles page
+        AxiosWithAuth().get('/api/colors').then(response => updateColors(response.data)).catch(error => console.log(error));
+        console.log(response);
+      })
+      .catch(error => console.log(error))
   };
 
   const deleteColor = color => {
