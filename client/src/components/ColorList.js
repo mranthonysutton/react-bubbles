@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import AxiosWithAuth from "../utils/AxiosWithAuth";
 
 const initialColor = {
   color: "",
@@ -25,6 +25,13 @@ const ColorList = ({ colors, updateColors }) => {
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    AxiosWithAuth()
+      .delete(`/api/colors/${color.id}`)
+      .then(response => {
+        // pass in the updateColors call back so that it will filter based upon the ID that was not selected. Essentially deletes the item immediately, but then refactors the page without that ID
+        updateColors(() => colors.filter(item => item.id !== color.id));
+    })
+      .catch(error => console.log(error));
   };
 
   return (
