@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {TextField, Button, Container} from "@material-ui/core";
 import AxiosWithAuth from "../utils/AxiosWithAuth";
 
 const initialColor = {
@@ -105,21 +106,27 @@ const ColorList = ({ colors, updateColors }) => {
           </div>
         </form>
       )}
-      <div className="spacer" />
+      {/*<div className="spacer" />*/}
       {/* stretch - build another form here to add a color */}
+      <Container>
       <form onSubmit={addNewColor}>
-        <label>
-          color name:
-          <input
+        <h3>Add New Color</h3>
+          <TextField
+            placeholder={"Color Name..."}
+            variant={"outlined"}
+            margin={"normal"}
+            label={"Color Name..."}
             onChange={e =>
               setColorToEdit({ ...colorToEdit, color: e.target.value })
             }
             value={colorToEdit.color}
           />
-        </label>
-        <label>
-          hex code:
-          <input
+
+          <TextField
+            placeholder={"Hex Code..."}
+            variant={"outlined"}
+            margin={"normal"}
+            label={"Hex Code..."}
             onChange={e =>
               setColorToEdit({
                 ...colorToEdit,
@@ -128,9 +135,9 @@ const ColorList = ({ colors, updateColors }) => {
             }
             value={colorToEdit.code.hex}
           />
-        </label>
-        <button type={"submit"}>Add Color</button>
+        <Button variant={"contained"} margin="normal" color="primary" type={"submit"}>Add Color</Button>
       </form>
+      </Container>
     </div>
   );
 };
