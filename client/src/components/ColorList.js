@@ -10,6 +10,7 @@ const initialColor = {
 const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [newColor, setNewColor] = useState(initialColor);
 
   const editColor = color => {
     setEditing(true);
@@ -48,8 +49,8 @@ const ColorList = ({ colors, updateColors }) => {
     event.preventDefault();
 
     AxiosWithAuth()
-      .post('/api/colors', colorToEdit)
-      .then(response => updateColors(response.data))
+      .post('/api/colors', newColor)
+      .then(response => {updateColors(response.data); setNewColor(initialColor)})
       .catch(error => console.log(error));
   };
 
@@ -127,9 +128,9 @@ const ColorList = ({ colors, updateColors }) => {
             margin={"normal"}
             label={"Color Name..."}
             onChange={e =>
-              setColorToEdit({ ...colorToEdit, color: e.target.value })
+              setNewColor({ ...newColor, color: e.target.value })
             }
-            value={colorToEdit.color}
+            value={newColor.color}
           />
 
           <TextField
@@ -139,12 +140,12 @@ const ColorList = ({ colors, updateColors }) => {
             margin={"normal"}
             label={"Hex Code..."}
             onChange={e =>
-              setColorToEdit({
-                ...colorToEdit,
+              setNewColor({
+                ...newColor,
                 code: { hex: e.target.value }
               })
             }
-            value={colorToEdit.code.hex}
+            value={newColor.code.hex}
           />
         <Button variant={"contained"} margin="normal" color="primary" type={"submit"}>Add Color</Button>
       </form>
