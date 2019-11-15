@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Redirect} from "react-router-dom"
+import {Container, TextField, Button} from "@material-ui/core"
 import AxiosWithAuth from "../utils/AxiosWithAuth";
 
 const Login = (props) => {
@@ -44,14 +45,14 @@ const Login = (props) => {
     return <Redirect to={"/bubbles"}/>;
   } else {
     return (
-      <div className="container">
+      <Container maxWidth={"sm"}>
         <h1>Login For Bubbles</h1>
         <form onSubmit={handleSubmit}>
-          <input type="text" name={"username"} placeholder={"Lambda"} onChange={handleChange}/>
-          <input type="password" name={"password"} placeholder={"Lambda"} onChange={handleChange}/>
-          <button type={"submit"}>Log In</button>
+          <TextField required variant="outlined" label="Username..." margin="normal" type="text" name={"username"} placeholder={"Lambda"} onChange={handleChange}/>
+          <TextField required variant="outlined" label="Password..." margin="normal" type="password" name={"password"} placeholder={"Lambda"} onChange={handleChange}/>
+          <Button size="large" color={"primary"} variant="contained" type={"submit"}>Log In</Button>
         </form>
-      </div>
+      </Container>
     );
   }
 };
